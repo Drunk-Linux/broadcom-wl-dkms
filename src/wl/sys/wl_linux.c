@@ -727,9 +727,12 @@ wl_attach(uint16 vendor, uint16 device, ulong regs,
 		dev->name, device,
 		WL_ALL_PASSIVE_ENAB(wl) ?  ", Passive Mode" : "", EPI_VERSION_STR);
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdate-time"
 #ifdef BCMDBG
-	printf(" (Compiled in " SRCBASE " at " __TIME__ " on " __DATE__ ")");
+	printf(" (Compiled in " SRCBASE " at  __TIME__  on  __DATE__ )");
 #endif 
+#pragma GCC diagnostic pop
 	printf("\n");
 
 	wl_found++;
@@ -2084,12 +2087,15 @@ wl_osl_pcie_rc(struct wl_info *wl, uint op, int param)
 	return 0;
 }
 
+#pragma GCC diagnostic push
+#pragma GCC diagnostic ignored "-Wdate-time"
 void
 wl_dump_ver(wl_info_t *wl, struct bcmstrbuf *b)
 {
 	bcm_bprintf(b, "wl%d: %s %s version %s\n", wl->pub->unit,
 		__DATE__, __TIME__, EPI_VERSION_STR);
 }
+#pragma GCC diagnostic pop
 
 #if defined(BCMDBG)
 static int
